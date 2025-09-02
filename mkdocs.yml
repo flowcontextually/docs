@@ -12,7 +12,7 @@ repo_url: https://github.com/flowcontextually/cx-shell
 edit_uri: ""
 
 # Copyright
-copyright: Copyright &copy; 2025 David Wanjala
+copyright: Copyright &copy; 2025 Contextually
 
 # Theme Configuration
 theme:
@@ -45,19 +45,21 @@ theme:
     text: Roboto
     code: Roboto Mono
 
-# --- THIS IS THE FIX ---
-# Add the required extensions for cards and icons.
+# --- THIS IS THE DEFINITIVE FIX ---
+# Add the pymdownx.tabbed extension to correctly render the === "Title" syntax.
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - pymdownx.tabbed: # <-- ADD THIS EXTENSION
+      alternate_style: true
   - admonition
   - toc:
       permalink: true
-  - attr_list # Enables adding attributes like {.class}
-  - md_in_html # Enables processing markdown inside HTML blocks
+  - attr_list
+  - md_in_html
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator:
@@ -68,6 +70,7 @@ extra_css:
   - stylesheets/extra.css
 
 # Navigation Structure
+# The incorrect '...' section has been removed.
 nav:
   - "Overview": "index.md"
   - "Tutorials":
