@@ -1,17 +1,35 @@
-name: Deploy Documentation
+name: Deploy Documentation to GitHub Pages
 
 on:
+  # Run this workflow automatically on every push to the `main` branch
   push:
     branches:
       - main
+
+  # Allows you to run this workflow manually from the Actions tab on GitHub
+  workflow_dispatch:
+
+permissions:
+  contents: read # to checkout the code
+  pages: write # to deploy to Pages
+  id-token: write # to verify the deployment authenticity
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: 3.x
-      - run: pip install mkdocs-material
-      - run: mkdocs gh-deploy --force --clean
+
+      - name: Install dependencies
+        run: pip install mkdocs-material
+
+      - name: Build and Deploy Documentation
+        # This command builds the site and pushes the result to the gh-pages branch.
+        # It uses the GITHUB_TOKEN with the permissions we granted above.
+        run: mkdocs gh-deploy --force --clean
