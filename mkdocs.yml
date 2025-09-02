@@ -77,6 +77,7 @@ nav:
       - "Getting Started": "tutorials/getting-started.md"
       - "Compiling Your First Blueprint": "tutorials/compiling-a-blueprint.md"
   - "How-To Guides":
+      - "Connect to a REST API": "how-to/connect-rest-api.md"
       - "Connecting to a Database": "how-to/connect-database.md"
   - "Explanation":
       - "The Blueprint Ecosystem": "explanation/blueprint-ecosystem.md"

@@ -6,7 +6,7 @@ This document is the official reference for the Contextually Shell (`cx`) comman
 
 ## Top-Level Command: `cx`
 
-The main entrypoint for the application. Running `cx` with no subcommand starts the interactive REPL (Read-Eval-Print Loop), which is the primary way to use the shell.
+The main entrypoint for the application. Running `cx` with no subcommand starts the interactive REPL (Read-Eval-Print Loop), which is the primary, stateful way to use the shell.
 
 **Usage:**
 
@@ -18,18 +18,22 @@ cx [OPTIONS] [COMMAND]
 
 These options can be used with the top-level `cx` command or any of its subcommands.
 
-| Option            | Description                   |
-| ----------------- | ----------------------------- |
-| `--help`          | Show help messages.           |
-| `--verbose`, `-v` | Enable verbose DEBUG logging. |
+| Option            | Description                                           |
+| ----------------- | ----------------------------------------------------- |
+| `--help`          | Show help messages for any command.                   |
+| `--verbose`, `-v` | Enable verbose DEBUG logging for detailed tracebacks. |
 
 ---
 
-## `cx init`
+## Top-Level Commands
+
+These commands are available directly under `cx`.
+
+### `cx init`
 
 Initializes the `cx` shell environment in your home directory (`~/.cx`).
 
-This is the recommended first step for any new user. It creates the necessary configuration directories and populates them with a sample "Petstore API" project to get you started, enabling the "5-Minute Tutorial".
+This is the **recommended first step** for any new user. It creates the necessary configuration directories and populates them with a sample "GitHub API" project to enable the "Getting Started" tutorial. This command is safe to run multiple times.
 
 **Usage:**
 
@@ -37,9 +41,7 @@ This is the recommended first step for any new user. It creates the necessary co
 cx init
 ```
 
----
-
-## `cx compile`
+### `cx compile`
 
 Compiles an API specification (like OpenAPI or Swagger) into a Contextually blueprint package. This is the core command for onboarding new services onto the platform.
 
@@ -67,15 +69,76 @@ cx compile [OPTIONS] <SPEC_SOURCE>
 **Example:**
 
 ```bash
-cx compile https://petstore.swagger.io/v2/swagger.json \
-  --name petstore \
-  --version v2.0.0 \
+cx compile https://api.digitalocean.com/v2/openapi.json \
+  --name digitalocean \
+  --version v1.0.0 \
   --namespace user
 ```
 
 ---
 
-## `cx extract`
+## Command Group: `cx connection`
+
+A command group for managing your local connection configurations stored in `~/.cx/connections/`.
+
+### `cx connection list`
+
+Lists all locally configured connections in a table, showing their friendly name, ID, and the blueprint they use.
+
+**Usage:**
+
+```bash
+cx connection list
+```
+
+### `cx connection create`
+
+Creates a new connection configuration file (`.conn.yaml`) and a corresponding secrets file (`.secret.env`). This command has two modes: interactive and non-interactive.
+
+**Usage (Interactive):**
+
+```bash
+# Start the fully interactive, guided setup
+cx connection create
+
+# Start a guided setup for a specific blueprint
+cx connection create --blueprint "system/mssql@v0.1.1"
+```
+
+**Usage (Non-Interactive):**
+
+This mode is designed for scripting and automation.
+
+```bash
+cx connection create [OPTIONS]
+```
+
+**Options for `create`:**
+
+| Option                   | Description                                                                              |
+| ------------------------ | ---------------------------------------------------------------------------------------- |
+| `--blueprint, -b <TEXT>` | Pre-select the blueprint ID to use for the connection.                                   |
+| `--name <TEXT>`          | **(Non-interactive only)** A friendly name for the connection.                           |
+| `--id <TEXT>`            | **(Non-interactive only)** A unique ID/alias for the connection.                         |
+| `--detail <TEXT>`        | **(Non-interactive only)** A non-sensitive `key=value` pair. Can be used multiple times. |
+| `--secret <TEXT>`        | **(Non-interactive only)** A SENSITIVE `key=value` pair. Can be used multiple times.     |
+
+**Example (Non-Interactive):**
+
+```bash
+cx connection create \
+  --name "My Production DB" \
+  --id "prod-db" \
+  --blueprint "system/mssql@v0.1.1" \
+  --detail "server=db.example.com" \
+  --detail "database=production" \
+  --secret "username=prod_user" \
+  --secret "password=my$ecret"
+```
+
+---
+
+## Command Group: `cx extract`
 
 A command group for all actions related to data extraction and I/O with external systems.
 
@@ -86,11 +149,8 @@ Executes a declarative `.connector.yaml` script. This is the primary non-interac
 **Usage:**
 
 ```bash
-# Execute a script
-cx extract run --script /path/to/your/workflow.connector.yaml
-
 # Pipe data from a previous step into the script
-cat data.json | cx extract run --script /path/to/your/workflow.connector.yaml
+cat data.json | cx extract run --script /path/to/workflow.connector.yaml
 ```
 
 **Options:**
@@ -98,11 +158,10 @@ cat data.json | cx extract run --script /path/to/your/workflow.connector.yaml
 | Option                | Description                                                    |
 | --------------------- | -------------------------------------------------------------- |
 | `--script, -s <PATH>` | **Required.** Path to the `.connector.yaml` script to execute. |
-| `--debug-action`      | Print rendered action payloads to stderr before sending.       |
 
 ---
 
-## `cx transform`
+## Command Group: `cx transform`
 
 A command group for all actions related to in-memory data transformation.
 
@@ -113,7 +172,7 @@ Reads JSON data from stdin, transforms it according to a `.transformer.yaml` scr
 **Usage:**
 
 ```bash
-cat input.json | cx transform run --script /path/to/your/transform.transformer.yaml > output.json
+cx extract run --script get-data.yaml | cx transform run --script create-report.yaml
 ```
 
 **Options:**
@@ -121,14 +180,3 @@ cat input.json | cx transform run --script /path/to/your/transform.transformer.y
 | Option                | Description                                                      |
 | --------------------- | ---------------------------------------------------------------- |
 | `--script, -s <PATH>` | **Required.** Path to the `.transformer.yaml` script to execute. |
-
-### Example Pipeline
-
-This demonstrates the core "Compose, Don't Command" philosophy of Contextually.
-
-```bash
-# A full ETL and delivery pipeline
-cx extract run --script get-data.yaml | \
-cx transform run --script create-report.yaml | \
-cx extract run --script send-email.yaml
-```
