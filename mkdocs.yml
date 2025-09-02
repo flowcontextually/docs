@@ -1,0 +1,82 @@
+site_name: Contextually
+site_url: https://flowcontextually.github.io/docs/
+site_author: dpwanjala
+site_description: >-
+  The Universal Computational Fabric. A declarative, multi-stage automation
+  platform where work retains its full context as it flows between different
+  tools, people, and AI agents.
+
+# Repository
+repo_name: flowcontextually/cx-shell
+repo_url: https://github.com/flowcontextually/cx-shell
+edit_uri: ""
+
+# Copyright
+copyright: Copyright &copy; 2025 David Wanjala
+
+# Theme Configuration
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+# --- THIS IS THE FIX ---
+# Add the required extensions for cards and icons.
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - toc:
+      permalink: true
+  - attr_list # Enables adding attributes like {.class}
+  - md_in_html # Enables processing markdown inside HTML blocks
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator:
+        !!python/name:material.extensions.emoji.to_svg # --- END FIX ---
+
+
+extra_css:
+  - stylesheets/extra.css
+
+# Navigation Structure
+nav:
+  - "Overview": "index.md"
+  - "Tutorials":
+      - "Getting Started": "tutorials/getting-started.md"
+      - "Compiling Your First Blueprint": "tutorials/compiling-a-blueprint.md"
+  - "How-To Guides":
+      - "Connecting to a Database": "how-to/connect-database.md"
+  - "Explanation":
+      - "The Blueprint Ecosystem": "explanation/blueprint-ecosystem.md"
+  - "Reference":
+      - "CLI Reference": "reference/cli.md"
+      - "Blueprint Specification": "reference/blueprint-spec.md"

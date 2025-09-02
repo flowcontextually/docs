@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "contextually-docs"
+version = "0.1.0"
+description = "Official documentation, tutorials, and guides for the Contextually platform."
+authors = [
+    { name = "David Wanjala", email = "dpwanjala@example.com" },
+]
+readme = "README.md"
+requires-python = ">=3.12"
+license = { file = "LICENSE" }
+
+# --- Documentation Dependencies ---
+# These are the only packages needed to build and serve the documentation site.
+dependencies = [
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.5.0"
+]
+
+# --- Optional Dependencies ---
+# You can define extra sets of dependencies, for example, for testing.
+[project.optional-dependencies]
+dev = [
+    "ruff"
+]
