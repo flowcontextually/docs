@@ -95,3 +95,12 @@ Many commands have short aliases for convenience (e.g., `var list` can also be `
     | Command | Description |
     | :--- | :--- |
     | `inspect <variable>` | Displays a detailed summary panel of a session variable. |
+
+???+ note "`app`: Discover and manage installable applications."
+
+    | Command | Description |
+    | :--- | :--- |
+    | `app list` | Lists all applications currently installed in your workspace. |
+    | `app install <id\|url>` | Installs a new application from the public registry or a private URL. |
+    | `app uninstall <id>` | Uninstalls an application and removes its assets. |
+    | `app sync` | Refreshes and installs any missing blueprint dependencies for all your applications. |

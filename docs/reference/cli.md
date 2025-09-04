@@ -47,3 +47,18 @@ These commands are the workhorses for automated scripting. They are designed to 
 | :----------------- | :------------------------------------------------- | :------------------------------------------------------------------------------- |
 | `cx extract run`   | `... \| cx extract run --script get-data.yaml`     | Executes a declarative `.connector.yaml` script.                                 |
 | `cx transform run` | `... \| cx transform run --script shape-data.yaml` | Executes a declarative `.transformer.yaml` script, transforming data from stdin. |
+
+---
+
+## Command Group: `cx app`
+
+Manages the entire lifecycle of Contextually Applications.
+
+| Command                    | Description                                                                                               |
+| :------------------------- | :-------------------------------------------------------------------------------------------------------- |
+| `cx app search [query]`    | Searches the public registry for available applications.                                                  |
+| `cx app list`              | Lists all applications currently installed in your local `~/.cx` workspace.                               |
+| `cx app install <id\|url>` | Installs an application from the public registry or a private URL, including an interactive setup wizard. |
+| `cx app uninstall <id>`    | Safely removes an application and all of its associated assets.                                           |
+| `cx app sync`              | Checks for and installs any missing blueprint dependencies for all installed applications.                |
+| `cx app package`           | (For Developers) Packages a local application directory into a distributable `.tar.gz` archive.           |

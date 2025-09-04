@@ -71,6 +71,7 @@ nav:
       - "Connect to a REST API": "how-to/connect-rest-api.md"
       - "Managing Your Workspace": "how-to/managing-your-workspace.md"
       - "Building In-Terminal Pipelines": "how-to/building-pipelines.md"
+      - "Packaging an Application": "how-to/packaging-an-application.md"
   - "Cookbook":
       - "Automating a Daily Report": "cookbook/daily-reporting-workflow.md"
       - "Creating an On-Demand Data API": "cookbook/on-demand-data-api.md"
@@ -81,5 +82,6 @@ nav:
       - "Blueprint Specification": "reference/blueprint-spec.md"
   - "Concepts":
       - "The Blueprint Ecosystem": "concepts/blueprint-ecosystem.md"
+      - "The Application Ecosystem": "concepts/application-ecosystem.md"
       - "The Shell as a Workspace IDE": "concepts/shell-as-ide.md"
       - "Thinking in Pipelines": "concepts/thinking-in-pipelines.md"
