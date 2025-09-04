@@ -26,12 +26,11 @@ Our core philosophy is to eliminate **context fragmentation**—the loss of line
 
 ## Core Concepts
 
-- **The `cx` Shell:** An interactive REPL that holds the state of your connections, allowing you to chain commands and explore APIs dynamically.
-- **Blueprints:** Version-controlled packages that define how to interact with an external service. They are the reusable, shareable core of the ecosystem.
-- **The Compiler (`cx compile`):** A powerful tool that takes a machine-readable specification (like OpenAPI) and automatically generates a complete blueprint package.
-- **The UNIX Philosophy:** Small, powerful tools (`extract`, `transform`) are composed together using pipes (`|`) to create complex, robust workflows.
-
-## The Big Picture
+- **The `cx` Interactive Shell:** A stateful REPL that holds your connections and variables, enabling a fast, exploratory workflow.
+- **Pipelining (`|`):** Chain commands together using the pipe operator to create powerful, in-terminal data flows, embodying the UNIX philosophy.
+- **Workspace & Asset Management:** Treat your connections, variables, sessions, and reusable workflows (`flows`, `queries`, `scripts`) as first-class assets you can manage directly from the shell.
+- **Universal Output Formatters:** Flexibly control the presentation of any command's output using flags like `--output table` and `--query`.
+- **Blueprints & The Compiler:** The foundation of the platform. Blueprints are version-controlled packages that define how to interact with an external service, and `cx compile` automatically generates them from specifications like OpenAPI.
 
 Contextually is built on three foundational principles:
 

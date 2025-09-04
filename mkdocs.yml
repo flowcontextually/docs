@@ -45,42 +45,41 @@ theme:
     text: Roboto
     code: Roboto Mono
 
-# --- THIS IS THE DEFINITIVE FIX ---
-# Add the pymdownx.tabbed extension to correctly render the === "Title" syntax.
 markdown_extensions:
-  - pymdownx.highlight:
-      anchor_linenums: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - pymdownx.superfences
-  - pymdownx.tabbed: # <-- ADD THIS EXTENSION
-      alternate_style: true
   - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
   - toc:
       permalink: true
   - attr_list
   - md_in_html
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator:
-        !!python/name:material.extensions.emoji.to_svg # --- END FIX ---
-
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 extra_css:
   - stylesheets/extra.css
 
 # Navigation Structure
-# The incorrect '...' section has been removed.
 nav:
   - "Overview": "index.md"
-  - "Tutorials":
-      - "Getting Started": "tutorials/getting-started.md"
-      - "Compiling Your First Blueprint": "tutorials/compiling-a-blueprint.md"
+  - "Getting Started": "tutorials/getting-started.md"
   - "How-To Guides":
+      - "Connect to a Database": "how-to/connect-database.md"
       - "Connect to a REST API": "how-to/connect-rest-api.md"
-      - "Connecting to a Database": "how-to/connect-database.md"
-  - "Explanation":
-      - "The Blueprint Ecosystem": "explanation/blueprint-ecosystem.md"
+      - "Managing Your Workspace": "how-to/managing-your-workspace.md"
+      - "Building In-Terminal Pipelines": "how-to/building-pipelines.md"
+  - "Cookbook":
+      - "Automating a Daily Report": "cookbook/daily-reporting-workflow.md"
+      - "Creating an On-Demand Data API": "cookbook/on-demand-data-api.md"
   - "Reference":
-      - "CLI Reference": "reference/cli.md"
+      - "CLI Commands ($)": "reference/cli.md"
+      - "Interactive Shell (cx>)": "reference/repl.md"
+      - "Power User Tools": "reference/power-tools.md"
       - "Blueprint Specification": "reference/blueprint-spec.md"
+  - "Concepts":
+      - "The Blueprint Ecosystem": "concepts/blueprint-ecosystem.md"
+      - "The Shell as a Workspace IDE": "concepts/shell-as-ide.md"
+      - "Thinking in Pipelines": "concepts/thinking-in-pipelines.md"
