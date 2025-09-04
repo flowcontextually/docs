@@ -14,7 +14,7 @@ The following keys are the top-level attributes of a `blueprint.cx.yaml` file.
 | ------------------------ | ------ | -------- | ----------------------------------------------------------------------------------------------------------------- |
 | `id`                     | String | Yes      | A unique identifier for the blueprint, e.g., `blueprint:system-mssql`.                                            |
 | `name`                   | String | Yes      | The human-readable name of the API, e.g., "Microsoft SQL Server".                                                 |
-| `version`                | String | Yes      | The semantic version of this blueprint package, e.g., `0.1.1`. This must match the release tag.                   |
+| `version`                | String | Yes      | The semantic version of this blueprint package, e.g., `0.2.1`. This must match the release tag.                   |
 | `connector_provider_key` | String | Yes      | The key for the runtime strategy to use, e.g., `rest-declarative`, `sql-mssql`.                                   |
 | `supported_auth_methods` | List   | No       | A list of authentication methods this blueprint supports. This contract drives the `cx connection create` wizard. |
 | `browse_config`          | Object | Yes      | The core configuration for API interaction, including the base URL and action templates.                          |
@@ -81,13 +81,23 @@ This is the most important section of the blueprint for REST APIs. It defines th
 
 Each key under `action_templates` is a unique, user-facing verb (often the `operationId` from an OpenAPI spec). The value is an object defining how to execute that action.
 
-| Key                   | Type   | Required       | Description                                                                                                                                               |
-| --------------------- | ------ | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `http_method`         | String | Yes (for REST) | The HTTP method for the request (e.g., `GET`, `POST`, `PUT`, `DELETE`).                                                                                   |
-| `api_endpoint`        | String | Yes (for REST) | The URL path for the action, relative to `base_url_template`. May contain Jinja2 variables, e.g., `/pets/{{ petId }}`.                                    |
-| `parameters_model`    | String | No             | The fully-qualified name of the Pydantic model in `schemas.py` used to validate path, query, and header parameters. e.g., `schemas.GetPetByIdParameters`. |
-| `payload_constructor` | Object | No             | An object defining the Pydantic model used to construct the JSON body for `POST` or `PUT` requests. e.g., `_constructor: schemas.Pet`.                    |
-| `run`                 | Object | No             | For non-REST actions (like SQL), this block explicitly defines the action to execute. e.g., `run: { action: "run_sql_query" }`.                           |
+| Key                   | Type   | Required       | Description                                                                                                                                              |
+| --------------------- | ------ | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `http_method`         | String | Yes (for REST) | The HTTP method for the request (e.g., `GET`, `POST`, `PUT`, `DELETE`).                                                                                  |
+| `api_endpoint`        | String | Yes (for REST) | The URL path for the action, relative to `base_url_template`. May contain Jinja2 variables from the flow's `context`, e.g., `/pets/{{ context.petId }}`. |
+| `payload_constructor` | Object | No             | For `POST` or `PUT` requests, this block defines the Pydantic model used to construct and validate the request body from the flow's `context`.           |
+| `run`                 | Object | No             | For non-REST actions (like SQL), this block explicitly defines the action to execute. e.g., `run: { action: "run_sql_query" }`.                          |
+
+### `payload_constructor` (v0.2.1+)
+
+This block is the heart of the declarative payload engine. It tells the engine how to build and validate the JSON body for a request.
+
+| Key      | Type   | Required | Description                                                                                                                                                                                                                               |
+| -------- | ------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `_model` | String | Yes      | The fully-qualified name of the Pydantic model in `schemas.py` that represents the final API payload (e.g., `schemas.SendGridMailPayload`). The engine will use this to validate the `context` from the flow step before making the call. |
+
+!!! success "Schema-Driven Transformation"
+The `cx` engine is intelligent. It uses the target Pydantic model (`_model`) to automatically transform the data provided in a flow's `context`. For example, if a model field is `to: List[EmailObject]` and the user provides a simple list of strings, the engine will automatically convert it to the required `[{'email': '...'}]` structure. This keeps flow files simple and blueprints clean.
 
 #### REST API Example
 
@@ -95,18 +105,19 @@ Each key under `action_templates` is a unique, user-facing verb (often the `oper
 browse_config:
   base_url_template: https://api.example.com/v1
   action_templates:
-    # Action with path parameters, validated by a Pydantic model
+    # A GET action with a dynamic path parameter from the context.
     getUser:
       http_method: GET
-      api_endpoint: /users/{{ userId }}
-      parameters_model: schemas.GetUserParameters
+      api_endpoint: /users/{{ context.userId }}
 
-    # Action with a request body, constructed from a Pydantic model
+    # A POST action with a request body.
+    # The flow's 'context' block must provide data that can be
+    # validated against the 'schemas.User' Pydantic model.
     createUser:
       http_method: POST
       api_endpoint: /users
       payload_constructor:
-        _constructor: schemas.User
+        _model: schemas.User
 ```
 
 #### SQL Example
