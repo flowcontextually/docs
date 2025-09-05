@@ -62,3 +62,14 @@ Manages the entire lifecycle of Contextually Applications.
 | `cx app uninstall <id>`    | Safely removes an application and all of its associated assets.                                           |
 | `cx app sync`              | Checks for and installs any missing blueprint dependencies for all installed applications.                |
 | `cx app package`           | (For Developers) Packages a local application directory into a distributable `.tar.gz` archive.           |
+
+## Command Group: `cx process`
+
+Manages long-running, asynchronous background tasks, typically initiated by the `agent`.
+
+| Command                    | Description                                                          |
+| :------------------------- | :------------------------------------------------------------------- |
+| `cx process list`          | Lists all background processes and their current status.             |
+| `cx process logs <id>`     | Shows the complete log output for a specific process.                |
+| `cx process logs --follow` | Attaches to a running process to stream its log output in real-time. |
+| `cx process stop <id>`     | (Coming in v0.5.0) Forcibly stops a running background process.      |

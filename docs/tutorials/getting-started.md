@@ -2,7 +2,7 @@
 
 Welcome! This tutorial is the best place to start your journey with Contextually. In the next five minutes, you will:
 
-1.  Install the `cx` command-line shell (v0.3.0).
+1.  Install the `cx` command-line shell (v0.4.0).
 2.  Initialize a sample project on your local machine.
 3.  Use the interactive shell to connect to the public GitHub API.
 4.  Run an API command and store its result in a **session variable**.
@@ -19,13 +19,13 @@ Let's begin!
 
 ## 1. Installation
 
-Download and install the latest `v0.3.0` pre-compiled binary for your operating system from our [**GitHub Releases page**](https://github.com/flowcontextually/cx-shell/releases).
+Download and install the latest `v0.4.0` pre-compiled binary for your operating system from our [**GitHub Releases page**](https://github.com/flowcontextually/cx-shell/releases).
 
 === "Linux"
 
     ```bash
-    # This script downloads the latest v0.3.0 Linux binary and moves it to your path.
-    curl -sL https://github.com/flowcontextually/cx-shell/releases/download/v0.3.0/cx-v0.3.0-linux-x86_64.tar.gz | tar -xz
+    # This script downloads the latest v0.4.0 Linux binary and moves it to your path.
+    curl -sL https://github.com/flowcontextually/cx-shell/releases/download/v0.4.0/cx-v0.4.0-linux-x86_64.tar.gz | tar -xz
     sudo mv cx /usr/local/bin/
     cx --version
     ```
@@ -33,8 +33,8 @@ Download and install the latest `v0.3.0` pre-compiled binary for your operating 
 === "macOS (Intel & Apple Silicon)"
 
     ```bash
-    # This script downloads the latest v0.3.0 macOS binary and moves it to your path.
-    curl -sL https://github.com/flowcontextually/cx-shell/releases/download/v0.3.0/cx-v0.3.0-macos-x86_64.tar.gz | tar -xz
+    # This script downloads the latest v0.4.0 macOS binary and moves it to your path.
+    curl -sL https://github.com/flowcontextually/cx-shell/releases/download/v0.4.0/cx-v0.4.0-macos-x86_64.tar.gz | tar -xz
     sudo mv cx /usr/local/bin/
     cx --version
     ```
@@ -42,8 +42,8 @@ Download and install the latest `v0.3.0` pre-compiled binary for your operating 
 === "Windows (PowerShell)"
 
     ```powershell
-    # This script downloads the latest v0.3.0 Windows binary and unzips it.
-    $url = "https://github.com/flowcontextually/cx-shell/releases/download/v0.3.0/cx-v0.3.0-windows-amd64.zip"
+    # This script downloads the latest v0.4.0 Windows binary and unzips it.
+    $url = "https://github.com/flowcontextually/cx-shell/releases/download/v0.4.0/cx-v0.4.0-windows-amd64.zip"
     $output = "cx.zip"
     Invoke-WebRequest -Uri $url -OutFile $output
     Expand-Archive -Path $output -DestinationPath .

@@ -62,15 +62,19 @@ markdown_extensions:
 extra_css:
   - stylesheets/extra.css
 
-# Navigation Structure
 nav:
   - "Overview": "index.md"
-  - "Getting Started": "tutorials/getting-started.md"
+  - "Tutorials":
+      - "Getting Started": "tutorials/getting-started.md"
+      - "Your First Agentic Translation": "tutorials/first-agent-session.md"
+      - "Compiling a Blueprint": "tutorials/compiling-a-blueprint.md"
   - "How-To Guides":
+      - "Use the `cx` Agent": "how-to/use-the-agent.md"
+      - "Manage Background Processes": "how-to/manage-processes.md"
+      - "Build In-Terminal Pipelines": "how-to/building-pipelines.md"
+      - "Managing Your Workspace": "how-to/managing-your-workspace.md"
       - "Connect to a Database": "how-to/connect-database.md"
       - "Connect to a REST API": "how-to/connect-rest-api.md"
-      - "Managing Your Workspace": "how-to/managing-your-workspace.md"
-      - "Building In-Terminal Pipelines": "how-to/building-pipelines.md"
       - "Packaging an Application": "how-to/packaging-an-application.md"
   - "Cookbook":
       - "Automating a Daily Report": "cookbook/daily-reporting-workflow.md"
@@ -81,6 +85,7 @@ nav:
       - "Power User Tools": "reference/power-tools.md"
       - "Blueprint Specification": "reference/blueprint-spec.md"
   - "Concepts":
+      - "The Agentic Shell": "concepts/agentic-shell.md"
       - "The Blueprint Ecosystem": "concepts/blueprint-ecosystem.md"
       - "The Application Ecosystem": "concepts/application-ecosystem.md"
       - "The Shell as a Workspace IDE": "concepts/shell-as-ide.md"

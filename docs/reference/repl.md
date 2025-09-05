@@ -9,12 +9,13 @@ For a guide to the non-interactive CLI commands like `cx init`, `cx compile`, an
 
 ## Core Syntax & Operators
 
-| Syntax                  | Example                                    | Description                                                 |
-| :---------------------- | :----------------------------------------- | :---------------------------------------------------------- |
-| `<alias>.<action>(...)` | `gh.getUser(name="google")`                | Execute a blueprint-defined action on an active connection. |
-| `<var> = <command>`     | `repos = gh.read(...)`                     | Assign the result of a command to a session variable.       |
-| `<cmd> \| <cmd>`        | `flow run ... \| script run ...`           | Pipe the output of one command to the input of the next.    |
-| `(...)`                 | `(repos \| script run ...) --output table` | Group commands to control the order of operations.          |
+| Syntax                  | Example                                    | Description                                                       |
+| :---------------------- | :----------------------------------------- | :---------------------------------------------------------------- |
+| `// <prompt>`           | `// list my flows`                         | **Translate** a natural language prompt into a `cx` command.      |
+| `<alias>.<action>(...)` | `gh.getUser(name="google")`                | Execute a blueprint-defined action on an active connection.       |
+| `<var> = <command>`     | `repos = gh.read(...)`                     | Assign the result of a command or pipeline to a session variable. |
+| `<cmd> \| <cmd>`        | `flow run ... \| script run ...`           | Pipe the output of one command to the input of the next.          |
+| `(...)`                 | `(repos \| script run ...) --output table` | Group commands to control the order of operations and precedence. |
 
 ---
 
@@ -104,3 +105,19 @@ Many commands have short aliases for convenience (e.g., `var list` can also be `
     | `app install <id\|url>` | Installs a new application from the public registry or a private URL. |
     | `app uninstall <id>` | Uninstalls an application and removes its assets. |
     | `app sync` | Refreshes and installs any missing blueprint dependencies for all your applications. |
+
+???+ note "`agent`: Engage the Collaborative Agent."
+
+    > **Note:** The full reasoning capabilities of the agent are planned for v0.5.0.
+
+    | Command | Description |
+    | :--- | :--- |
+    | `agent <goal>` | (v0.5.0) Starts a collaborative, multi-step reasoning session to achieve a complex goal. |
+
+???+ note "`process`: Manage background processes."
+
+    | Command | Description |
+    | :--- | :--- |
+    | `process list` | Lists all background processes and their current status. |
+    | `process logs <id>` | Shows the complete log output for a specific process. |
+    | `process logs --follow <id>` | Attaches to a running process to stream its logs in real-time. |
