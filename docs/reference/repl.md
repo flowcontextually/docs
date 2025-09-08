@@ -108,11 +108,9 @@ Many commands have short aliases for convenience (e.g., `var list` can also be `
 
 ???+ note "`agent`: Engage the Collaborative Agent."
 
-    > **Note:** The full reasoning capabilities of the agent are planned for v0.5.0.
-
     | Command | Description |
     | :--- | :--- |
-    | `agent <goal>` | (v0.5.0) Starts a collaborative, multi-step reasoning session to achieve a complex goal. |
+    | `agent <goal>` | Starts a collaborative, multi-step reasoning session to achieve a complex goal. |
 
 ???+ note "`process`: Manage background processes."
 

@@ -2,32 +2,33 @@
 
 The `cx` interactive shell is designed as a powerful **"Workspace IDE"**—a stateful environment for composing commands, managing assets, and building workflows. The shell's most advanced capability is its integrated **agentic layer**, which transforms the IDE into an intelligent **reasoning partner**.
 
-This document explains the philosophy behind the `cx` agent and the capabilities that make it a unique and powerful tool for data and operations.
+This document explains the philosophy and architecture behind the `cx` agent.
 
 ## From Composition to Collaboration: The Intent Engine
 
-While `cx` provides powerful primitives for manual work—like pipelines (`|`) and variables (`=`)—its true potential is unlocked by bridging the gap between high-level **user intent** and low-level **command execution**. This is the core function of the shell's **Intent Engine**.
+While `cx` provides powerful primitives for manual work (`|`, `=`), its true potential is unlocked by bridging the gap between high-level **user intent** and low-level **command execution**. This is the core function of the shell's **Intent Engine**. The engine provides a spectrum of assistance, allowing you to choose the right level of collaboration for any task.
 
-The Intent Engine provides a spectrum of assistance, from instant command suggestions to fully autonomous, multi-step problem-solving. This allows you to choose the right level of collaboration for any task.
+- **Fast Path (`//`):** For immediate, in-context assistance, the **Translate** feature acts as a "fast thinking" co-pilot, providing single-shot, natural-language-to-command translation. Its purpose is to lower the cognitive barrier to using the shell and accelerate common tasks.
 
-### Fast Path: The Translate Directive (`//`)
+- **Deliberate Path (`agent`):** For complex, multi-step problems, you engage the full **Reasoner**. This is the "slow thinking" component—a deliberative, stateful partner that can plan and execute complex workflows.
 
-For immediate, in-context assistance, the shell offers the **Translate** feature. This is the "fast thinking" component of the agent—an intuitive, context-aware capability for the entire `cx` language.
+## The CARE Architecture: A Team of Specialists
 
-- **What It Is:** A mechanism for single-shot, natural-language-to-command translation.
-- **How It Works:** You start a line with the translate directive (`//`) and describe your goal in plain English. The Intent Engine instantly translates your goal into a precise `cx` command and places it in your prompt, ready for you to review and execute.
-- **Purpose:** To lower the cognitive barrier to using the shell, accelerate common tasks, and actively teach you the platform's powerful syntax by example.
+The `agent` command is powered by the **Composite Agent Reasoning Engine (CARE)**, a hierarchical architecture inspired by how human expert teams operate. Instead of a single, monolithic AI, CARE is a team of specialist agents, each with a distinct role.
 
-### Deliberate Path: The Reasoner (`agent`)
+### 1. The Planner Agent
 
-For complex, multi-step problems, you can engage the full **Reasoner** with the `agent` command. This is the "slow thinking" component—a deliberative, stateful partner that can plan and execute complex workflows.
+- **Role:** The High-Level Strategist.
+- **Function:** When you provide a goal (e.g., `agent "Onboard the Spotify API..."`), the Planner is the first agent to act. It looks at your goal and the high-level context of your workspace (available flows, recent commands) and creates a concise, logical, high-level plan. It thinks in terms of meta-actions, like "Compile the blueprint," not specific command syntax.
 
-- **What It Is:** A collaborative, turn-by-turn reasoning session.
-- **How It Works:** You invoke the agent with `agent <complex goal>`. The agent responds with a high-level strategic plan and then begins to execute it step-by-step, showing you its reasoning and asking for your confirmation before each action.
-- **Purpose:** To act as an autonomous partner for sophisticated tasks like production incident diagnostics, multi-source data reporting, and automated workflow generation.
+### 2. The Tool Specialist Agent
 
-## From Generative to Durable: The Core Principle
+- **Role:** The Expert Technician.
+- **Function:** The Tool Specialist receives the Planner's strategy and focuses on executing a single step. It is given a "Mission Briefing"—the original goal, the full plan, and any facts discovered so far—to ensure it has all the context it needs. It then uses its knowledge of the shell's grammar and available tools to generate a precise, syntactically perfect `cx` command to accomplish that single step.
 
-A key principle of the agentic shell is that AI-driven work should not be ephemeral. While the interaction is generative, the final output is a **durable asset**.
+### 3. The Analyst Agent
 
-At the end of a successful reasoning session, the agent's ultimate goal is to produce a complete, human-readable, and version-controllable **`.flow.yaml`** file. This codifies the successful solution, transforming a one-time conversation into a piece of reusable, reliable automation. This makes the agent not just a problem-solver, but a powerful engine for building a permanent, ever-growing library of custom tools for your entire team.
+- **Role:** The Observer and Sense-Maker.
+- **Function:** After a command is executed, the Analyst agent examines the result (the "observation"). Its job is to interpret what happened. Did the command succeed? Did it reveal a new, important piece of information (like a URL or an ID)? Or did it fail in a way that invalidates the entire plan? The Analyst updates the team's shared understanding (the "belief state") and provides a concise summary, allowing the loop to continue to the next step or escalate back to the Planner for re-planning.
+
+This structured, collaborative process allows the `cx` agent to break down complex problems and solve them more reliably and transparently than a single monolithic model.
