@@ -86,4 +86,4 @@ Let's ask the agent to perform a common, multi-step task: compiling a new bluepr
 
 4.  **Confirm and Collaborate.** You press `yes`, the command runs, and the agent proceeds to the next step, continuing this loop until the mission is accomplished.
 
-This powerful, deliberate reasoning mode enables `cx` to act as a true co-pilot for your most critical operational tasks.
+This powerful, deliberate reasoning mode enables `cx` to act as a true **intelligent assistant** for your most critical operational tasks.
